@@ -1,0 +1,114 @@
+[gd_scene load_steps=11 format=3 uid="uid://6logaqp5n08h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_k4dva"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf6qa"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l22ol"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ai7pe"]
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvr5y"]
+cull_mode = 2
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxovi"]
+albedo_color = Color(0.4, 1, 0.447059, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nnnmo"]
+material = SubResource("StandardMaterial3D_sxovi")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vrbtv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_olo54"]
+cull_mode = 2
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kx8mj"]
+material = SubResource("StandardMaterial3D_olo54")
+subdivide_width = 10
+subdivide_depth = 10
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73183, 0)
+mass = 0.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_k4dva")
+surface_material_override/0 = SubResource("StandardMaterial3D_lf6qa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_l22ol")
+
+[node name="StaticBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.5, 0)
+mass = 0.3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("SphereMesh_k4dva")
+surface_material_override/0 = SubResource("StandardMaterial3D_lf6qa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("SphereShape3D_l22ol")
+
+[node name="SoftBody3D3" type="SoftBody3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 0.431267, -0.902224, 0, 0.902224, 0.431267, 0.203349, -1.14025, 0.120333)
+mesh = SubResource("PlaneMesh_ai7pe")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_jvr5y")
+total_mass = 0.01
+linear_stiffness = 0.3
+pinned_points = [143, 132]
+attachments/0/point_index = 143
+attachments/0/spatial_attachment_path = NodePath("")
+attachments/0/offset = Vector3(0, 0, 0)
+attachments/1/point_index = 132
+attachments/1/spatial_attachment_path = NodePath("")
+attachments/1/offset = Vector3(0, 0, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("BoxMesh_nnnmo")
+skeleton = NodePath("")
+
+[node name="RigidBody3D2" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/RigidBody3D2"]
+shape = SubResource("BoxShape3D_vrbtv")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.766044, -0.45452, 0.45452, 0, 0.707107, 0.707107, -0.642788, -0.541675, 0.541675, 1.91744, 4.9026, 2.39908)
+
+[node name="SoftBody3D" type="SoftBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35975, 0)
+mesh = SubResource("PlaneMesh_ai7pe")
+surface_material_override/0 = SubResource("StandardMaterial3D_jvr5y")
+total_mass = 0.01
+linear_stiffness = 0.3
+
+[node name="SoftBody3D2" type="SoftBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 0)
+mesh = SubResource("PlaneMesh_kx8mj")
+pinned_points = [132, 0, 11, 143]
+attachments/0/point_index = 132
+attachments/0/spatial_attachment_path = NodePath("")
+attachments/0/offset = Vector3(0, 0, 0)
+attachments/1/point_index = 0
+attachments/1/spatial_attachment_path = NodePath("")
+attachments/1/offset = Vector3(0, 0, 0)
+attachments/2/point_index = 11
+attachments/2/spatial_attachment_path = NodePath("")
+attachments/2/offset = Vector3(0, 0, 0)
+attachments/3/point_index = 143
+attachments/3/spatial_attachment_path = NodePath("")
+attachments/3/offset = Vector3(0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.873678, -0.476373, 0.0987671, 0.0589086, 0.305107, 0.950494, -0.482924, -0.824608, 0.294628, 16.841, 5.16353, 0)
+light_energy = 0.5
+shadow_enabled = true

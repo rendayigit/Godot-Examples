@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx473h5v6scbu"]
+
+[ext_resource type="Script" path="res://Orbit/Moon Pivot.gd" id="1_uv1jr"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_68jpn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ro1aa"]
+
+[node name="Solar System" type="Node3D"]
+
+[node name="Earth" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("SphereMesh_68jpn")
+
+[node name="Moon Pivot" type="Node3D" parent="."]
+script = ExtResource("1_uv1jr")
+
+[node name="Moon" type="MeshInstance3D" parent="Moon Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+mesh = SubResource("SphereMesh_ro1aa")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.871736, 0.489976, 0, -0.489976, 0.871736, 1.27487, 2.66584, 4.31459)
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.324469, -0.612372, 0.720916, 0.183013, 0.707107, 0.683013, -0.928023, 0.353553, -0.117363, 0, 4, 0)

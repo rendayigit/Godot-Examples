@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm0twgxioap2o"]
+
+[ext_resource type="Texture2D" uid="uid://d1p4nfbj7bceu" path="res://icon.svg" id="1_dwsv1"]
+[ext_resource type="Script" path="res://Area/Player.gd" id="2_ga8yd"]
+[ext_resource type="Script" path="res://Area/Area.gd" id="2_nym4c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofmeo"]
+size = Vector2(124, 123)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Area2D" type="Sprite2D" parent="."]
+position = Vector2(711, 476)
+texture = ExtResource("1_dwsv1")
+script = ExtResource("2_nym4c")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D/Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ofmeo")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_ga8yd")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(540, 475)
+texture = ExtResource("1_dwsv1")
+metadata/_edit_group_ = true
+
+[node name="PlayerArea" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(540, 475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/PlayerArea"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ofmeo")
+
+[connection signal="area_entered" from="Area2D/Area2D" to="Area2D" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D/Area2D" to="Area2D" method="_on_area_2d_area_exited"]
